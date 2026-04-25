@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz — MaBallet</title>
+  <link rel="stylesheet" href="../public/estilo.css" />
+</head>
+<body>
+
+  <header>
+    <h1>MaBallet</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="login.html">Login</a>
+      <a href="quiz.html" class="ativo">Quiz</a>
+    </nav>
+  </header>
+
+  <div class="pagina">
+    <div class="card" style="max-width: 540px;">
+
+      <!-- Cabeçalho do quiz -->
+      <div class="quiz-topo">
+        <h2>Qual é o seu perfil?</h2>
+        <p>5 perguntas para descobrir seu personagem no ballet</p>
+      </div>
+
+      <!-- Barra de progresso (5 tracinhos) -->
+      <div class="progresso" id="progresso"></div>
+
+      <!-- ─── ÁREA DAS PERGUNTAS ─── -->
+      <div id="area-quiz">
+        <p class="quiz-num"      id="quiz-num"></p>
+        <p class="quiz-pergunta" id="quiz-pergunta"></p>
+
+        <div class="opcoes" id="quiz-opcoes"></div>
+
+        <div class="navegacao">
+          <button class="btn-voltar"  id="btn-voltar"  onclick="irAnterior()">← Voltar</button>
+          <button class="botao"       id="btn-avancar" onclick="irProximo()" disabled
+                  style="width:auto; padding: 10px 24px; margin-top:0">Próximo →</button>
+        </div>
+      </div>
+
+      <!-- ─── ÁREA DO RESULTADO (começa escondida) ─── -->
+      <div id="area-resultado" class="escondido" style="text-align:center">
+        <p class="resultado-emoji"     id="res-emoji"></p>
+        <p class="resultado-subtitulo">Seu perfil é</p>
+        <p class="resultado-perfil"    id="res-perfil"></p>
+        <p class="resultado-desc"      id="res-desc"></p>
+
+        <div class="barra-fundo">
+          <div class="barra-preenchida" id="res-barra" style="width: 0%"></div>
+        </div>
+
+        <button class="btn-refazer" onclick="reiniciar()">Refazer quiz</button>
+        <button class="botao"       onclick="salvar()" style="margin-top:0">Salvar resultado</button>
+
+        <p class="aviso-salvar" id="aviso-salvar"></p>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <p>Ballet Dom Quixote • Projeto Individual 2026 • SPTECH</p>
+  </footer>
+
+  <script>
+
+    var perguntas = [
+      {
+        texto:  "Você está numa festa e começa a tocar uma música animada. O que você faz?",
+        campo:  "cenario",
+        opcoes: [
+          { label: "Prefiro observar e apreciar quem está dançando",  perfil: "A" },
+          { label: "Fico na beirada curtindo, entro na hora certa",   perfil: "B" },
+          { label: "Convido alguém e danço do meu jeito mesmo",       perfil: "C" },
+          { label: "Já vou pra pista, não resisto!",                  perfil: "D" }
+        ]
+      },
+      {
+        texto:  "Se o ballet fosse um tipo de filme, qual você assistiria?",
+        campo:  "estilo",
+        opcoes: [
+          { label: "Drama intenso com reviravoltas emocionais",       perfil: "A" },
+          { label: "Documentário sobre bastidores e dedicação",       perfil: "B" },
+          { label: "Comédia leve e cheia de energia",                 perfil: "C" },
+          { label: "Épico grandioso com cenários deslumbrantes",      perfil: "D" }
+        ]
+      },
+      {
+        texto:  "Como você reage quando precisa aprender algo completamente novo?",
+        campo:  "reacao",
+        opcoes: [
+          { label: "Prefiro aprender com alguém do lado me guiando",  perfil: "A" },
+          { label: "Estudo tudo antes, gosto de chegar preparado",    perfil: "B" },
+          { label: "Jogo na prática logo, aprendo errando",           perfil: "C" },
+          { label: "Quanto mais difícil melhor, adoro um desafio",    perfil: "D" }
+        ]
+      },
+      {
+        texto:  "Qual dessas imagens mais combina com você?",
+        campo:  "motivacao",
+        opcoes: [
+          { label: "Uma apresentação que faz a plateia chorar",        perfil: "A" },
+          { label: "Alguém praticando até acertar o movimento perfeito", perfil: "B" },
+          { label: "Um ensaio em grupo cheio de risadas",              perfil: "C" },
+          { label: "Uma bailarina sozinha no palco sob o refletor",    perfil: "D" }
+        ]
+      },
+      {
+        texto:  "O que mais te atrai na ideia de dançar ballet?",
+        campo:  "atracao",
+        opcoes: [
+          { label: "A beleza e a elegância dos movimentos",            perfil: "A" },
+          { label: "A disciplina e a evolução técnica",                perfil: "B" },
+          { label: "A leveza e a diversão de se movimentar",           perfil: "C" },
+          { label: "O palco, a música e a energia da apresentação",    perfil: "D" }
+        ]
+      }
+    ];
+
+    var perfis = {
+      A: { emoji: "🌸", nome: "O Espírito Poético",      desc: "Você é sensível e se conecta com o ballet pela emoção. Aprecia a beleza dos movimentos e a história que cada apresentação conta. Seu lugar favorito seria a primeira fila — ou o palco expressando cada sentimento." },
+      B: { emoji: "🎯", nome: "O Técnico Dedicado",      desc: "Você gosta de entender como as coisas funcionam e evoluir com consistência. No ballet encontraria satisfação em dominar cada posição corretamente. A disciplina não te assusta — te motiva." },
+      C: { emoji: "✨", nome: "A Alma Livre",             desc: "Você traz leveza e alegria pra tudo que faz. No ballet adoraria a liberdade de se expressar e a energia dos ensaios em grupo. Para você, o mais importante é se divertir dançando." },
+      D: { emoji: "⭐", nome: "A Estrela em Formação",   desc: "Você nasceu pra brilhar. Adora desafios e quer dar o seu melhor. O palco te chama — a adrenalina de uma apresentação e os aplausos são exatamente o que te move." }
+    };
+
+    var atual     = 0;
+    var respostas = [null,null,null,null,null];
+    var letras    = ["A", "B", "C", "D"];
+
+
+    function iniciar() {
+      var divProgresso = document.getElementById("progresso");
+
+      // Cria um tracinho para cada pergunta
+      for (var i = 0; i < perguntas.length; i++) {
+        divProgresso.innerHTML = divProgresso.innerHTML +
+          '<div class="passo" id="passo-' + i + '"></div>';
+      }
+
+      mostrarPergunta();
+    }
+
+    function mostrarPergunta() {
+      var p = perguntas[atual];
+
+      // Atualiza número e texto da pergunta
+      document.getElementById("quiz-num").textContent =
+        "Pergunta " + (atual + 1) + " de " + perguntas.length;
+      document.getElementById("quiz-pergunta").textContent = p.texto;
+
+      // Monta os botões de opção
+      var html = "";
+      for (var i = 0; i < p.opcoes.length; i++) {
+
+        // Se essa opção já foi escolhida antes, adiciona a classe "marcada"
+        var classe = "opcao";
+        if (respostas[atual] !== null && respostas[atual].indice === i) {
+          classe = "opcao marcada";
+        }
+
+        html = html +
+          '<button class="' + classe + '" onclick="escolher(' + i + ')">' +
+            '<span class="opcao-letra">' + letras[i] + '</span>' +
+            p.opcoes[i].label +
+          '</button>';
+      }
+      document.getElementById("quiz-opcoes").innerHTML = html;
+
+      // Esconde o botão Voltar na primeira pergunta
+      if (atual === 0) {
+        document.getElementById("btn-voltar").style.visibility = "hidden";
+      } else {
+        document.getElementById("btn-voltar").style.visibility = "visible";
+      }
+
+      // Muda o texto do botão na última pergunta
+      if (atual === perguntas.length - 1) {
+        document.getElementById("btn-avancar").textContent = "Ver resultado ✓";
+      } else {
+        document.getElementById("btn-avancar").textContent = "Próximo →";
+      }
+
+      if (respostas[atual] === null) {
+        document.getElementById("btn-avancar").disabled = true;
+      } else {
+        document.getElementById("btn-avancar").disabled = false;
+      }
+
+      atualizarProgresso();
+    }
+
+    function escolher(indice) {
+      respostas[atual] = {
+        indice: indice,
+        perfil: perguntas[atual].opcoes[indice].perfil,
+        label:  perguntas[atual].opcoes[indice].label
+      };
+
+      var botoes = document.querySelectorAll(".opcao");
+      for (var i = 0; i < botoes.length; i++) {
+        botoes[i].className = "opcao";
+      }
+
+      botoes[indice].className = "opcao marcada";
+
+      document.getElementById("btn-avancar").disabled = false;
+    }
+
+    function irProximo() {
+      if (respostas[atual] === null) return;
+
+      if (atual < perguntas.length - 1) {
+        atual = atual + 1;
+        mostrarPergunta();
+      } else {
+        mostrarResultado();
+      }
+    }
+
+    function irAnterior() {
+      if (atual > 0) {
+        atual = atual - 1;
+        mostrarPergunta();
+      }
+    }
+
+    function atualizarProgresso() {
+      for (var i = 0; i < perguntas.length; i++) {
+        var passo = document.getElementById("passo-" + i);
+
+        if (i === atual) {
+          passo.className = "passo ativo";
+        } else if (respostas[i] !== null) {
+          passo.className = "passo completo";
+        } else {
+          passo.className = "passo";
+        }
+      }
+    }
+
+    function calcularPerfil() {
+      var contagemA = 0;
+      var contagemB = 0;
+      var contagemC = 0;
+      var contagemD = 0;
+
+      for (var i = 0; i < respostas.length; i++) {
+        if (respostas[i].perfil === "A") { contagemA = contagemA + 1; }
+        if (respostas[i].perfil === "B") { contagemB = contagemB + 1; }
+        if (respostas[i].perfil === "C") { contagemC = contagemC + 1; }
+        if (respostas[i].perfil === "D") { contagemD = contagemD + 1; }
+      }
+
+      var vencedor  = "A";
+      var maior     = contagemA;
+
+      // Compara com B, C e D — se algum for maior, troca
+      if (contagemB > maior) { maior = contagemB; vencedor = "B"; }
+      if (contagemC > maior) { maior = contagemC; vencedor = "C"; }
+      if (contagemD > maior) { maior = contagemD; vencedor = "D"; }
+
+      return vencedor;
+    }
+
+    function mostrarResultado() {
+      var chave  = calcularPerfil();
+      var perfil = perfis[chave];
+
+      var acertos = 0;
+      for (var i = 0; i < respostas.length; i++) {
+        if (respostas[i].perfil === chave) {
+          acertos = acertos + 1;
+        }
+      }
+
+      var porcentagem = (acertos / perguntas.length) * 100;
+
+      document.getElementById("area-quiz").classList.add("escondido");
+      document.getElementById("area-resultado").classList.remove("escondido");
+
+      document.getElementById("res-emoji").textContent  = perfil.emoji;
+      document.getElementById("res-perfil").textContent = perfil.nome;
+      document.getElementById("res-desc").textContent   = perfil.desc;
+      document.getElementById("aviso-salvar").textContent = "";
+
+      setTimeout(function () {
+        document.getElementById("res-barra").style.width = porcentagem + "%";
+      }, 100);
+    }
+
+    function reiniciar() {
+      atual     = 0;
+      respostas = [null, null, null, null, null];
+
+      document.getElementById("area-resultado").classList.add("escondido");
+      document.getElementById("area-quiz").classList.remove("escondido");
+      document.getElementById("res-barra").style.width = "0%";
+
+      mostrarPergunta();
+    }
+
+    function salvar() {
+      var aviso   = document.getElementById("aviso-salvar");
+      var usuario = JSON.parse(sessionStorage.getItem("usuario"));
+
+      if (usuario === null) {
+        aviso.className   = "aviso-salvar erro";
+        aviso.textContent = "Faça login para salvar seu resultado.";
+        return;
+      }
+
+      var chave   = calcularPerfil();
+      var acertos = 0;
+      for (var i = 0; i < respostas.length; i++) {
+        if (respostas[i].perfil === chave) {
+          acertos = acertos + 1;
+        }
+      }
+
+      var corpo = {
+        usuario_id: usuario.id,
+        perfil:     chave,
+        pontuacao:  acertos,
+        cenario:    respostas[0].label,
+        estilo:     respostas[1].label,
+        reacao:     respostas[2].label,
+        motivacao:  respostas[3].label
+      };
+
+      fetch("http://localhost:3000/quiz", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(corpo)
+      })
+      .then(function (resposta) {
+        return resposta.json();
+      })
+      .then(function (dados) {
+        if (dados.id) {
+          aviso.className   = "aviso-salvar sucesso";
+          aviso.textContent = "Resultado salvo com sucesso!";
+        } else {
+          aviso.className   = "aviso-salvar erro";
+          aviso.textContent = "Erro: " + dados.mensagem;
+        }
+      })
+      .catch(function () {
+        aviso.className   = "aviso-salvar erro";
+        aviso.textContent = "Não foi possível conectar ao servidor.";
+      });
+    }
+
+
+    // Inicia o quiz quando a página termina de carregar
+    iniciar();
+
+  </script>
+
+</body>
+</html>

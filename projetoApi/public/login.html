@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="../public/estilo.css" />
+</head>
+<body>
+
+  <header>
+    <h1>MaBallet</h1>
+    <nav>
+      <a href="../public/index.html">Home</a>
+      <a href="../public/login.html" class="ativo">Login</a>
+      <a href="../public/cadastro.html">Cadastro</a>
+    </nav>
+  </header>
+
+  <div class="pagina">
+    <div class="card">
+      <h2>Olá de volta!</h2>
+      <p class="subtitulo">Acesse sua conta</p>
+
+      <div class="alerta erro" id="cardErro">
+        <span id="mensagem_erro"></span>
+      </div>
+      <div class="alerta sucesso" id="cardSucesso">
+        <span id="mensagem_sucesso"></span>
+      </div>
+
+      <div class="campo">
+        <label>E-mail</label>
+        <input type="email" id="idEmail" placeholder="meuemail@provedor.com" />
+      </div>
+
+      <div class="campo">
+        <label>Senha</label>
+        <input type="password" id="idSenha" placeholder="******" />
+      </div>
+
+      <button type="button" class="botao" onclick="validarSessao()">Entrar</button>
+
+      <p class="tentativas" id="tentativas"></p>
+
+      <p class="rodape-card">Não tem conta? <a href="cadastro.html">Criar conta</a></p>
+    </div>
+  </div>
+<footer>
+    <p>Ballet Dom Quixote • Projeto Individual 2026 • SPTECH</p>
+</footer>
+  <script src="sessao.js"> </script>
+
+</body>
+</html>

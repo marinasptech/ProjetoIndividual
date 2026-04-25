@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro</title>
+  <link rel="stylesheet" href="../public/estilo.css" />
+</head>
+<body>
+
+  <header>
+    <h1>MaBallet</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="login.html">Login</a>
+      <a href="cadastro.html" class="ativo">Cadastro</a>
+    </nav>
+  </header>
+
+  <div class="pagina">
+    <div class="card">
+      <h2>Criar conta</h2>
+      <p class="subtitulo">Preencha os dados abaixo para se cadastrar</p>
+
+      <div class="alerta erro" id="cardErro">
+        <span id="mensagem_erro"></span>
+      </div>
+      <div class="alerta sucesso" id="cardSucesso">
+        <span id="mensagem_sucesso"></span>
+      </div>
+
+      <div class="campo">
+        <label>Nome completo</label>
+        <input type="text" id="idNome" placeholder="Seu nome" />
+      </div>
+
+      <div class="campo">
+        <label>E-mail</label>
+        <input type="text" id="idEmail" placeholder="meuemail@provedor.com" />
+      </div>
+
+      <div class="linha-dupla">
+        <div class="campo">
+          <label>Senha</label>
+          <input type="password" id="idSenha" placeholder="******" />
+        </div>
+        <div class="campo">
+          <label>Confirmar senha</label>
+          <input type="password" id="idConfirmaSenha" placeholder="******" />
+        </div>
+      </div>
+
+      <button type="button" class="botao" onclick="cadastrar()">Cadastrar</button>
+
+      <p class="rodape-card">Já tem conta? <a href="login.html">Entrar</a></p>
+    </div>
+  </div>
+
+ <footer>
+    <p>Ballet Dom Quixote • Projeto Individual 2026 • SPTECH</p>
+</footer>
+  <script src="sessao.js"></script>
+</body>
+</html>

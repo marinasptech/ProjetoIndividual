@@ -1,0 +1,27 @@
+-- MABALLET — Script do banco de dados
+
+CREATE DATABASE maballet;
+
+USE maballet;
+
+CREATE TABLE usuarios (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(120) NOT NULL,
+  email VARCHAR(180) NOT NULL,
+  senha VARCHAR(255) NOT NULL,
+  criado DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE quiz_respostas (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  fkUsuario INT NOT NULL,
+  CONSTRAINT cFkUsuario FOREIGN KEY (usuarioId) REFERENCES usuarios(id)
+  perfil VARCHAR(30) NOT NULL,
+  pontuacao INT NOT NULL,
+  cenario VARCHAR(80),
+  estilo VARCHAR(80),
+  reacao VARCHAR(80),
+  motivacao VARCHAR(80),
+  respondido DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  
+);

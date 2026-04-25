@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>MaBallet</h1>
+    <nav>
+      <a href="../home/home.html">Home</a>
+      <a href="login.html" class="ativo">Login</a>
+      <a href="cadastro.html">Cadastro</a>
+    </nav>
+  </header>
+
+  <div class="pagina">
+    <div class="card">
+      <h2>Olá de volta!</h2>
+      <p class="subtitulo">Acesse sua conta</p>
+
+      <div class="alerta erro" id="cardErro">
+        <span id="mensagem_erro"></span>
+      </div>
+      <div class="alerta sucesso" id="cardSucesso">
+        <span id="mensagem_sucesso"></span>
+      </div>
+
+      <div class="campo">
+        <label>E-mail</label>
+        <input type="email" id="idEmail" placeholder="meuemail@provedor.com" />
+      </div>
+
+      <div class="campo">
+        <label>Senha</label>
+        <input type="password" id="idSenha" placeholder="******" />
+      </div>
+
+      <button type="button" class="botao" onclick="entrar()">Entrar</button>
+
+      <p class="tentativas" id="tentativas"></p>
+
+      <p class="rodape-card">Não tem conta? <a href="cadastro.html">Criar conta</a></p>
+    </div>
+  </div>
+<footer>
+    <p>Ballet Dom Quixote • Projeto Individual 2026 • SPTECH</p>
+</footer>
+  <script>
+
+    let erros = [];
+
+    function entrar() {
+
+      let email = idEmail.value;
+      let senha = idSenha.value;
+
+      // Campos em branco
+      if (email === "" || senha === "") {
+        cardErro.style.display = "block";
+        mensagem_erro.innerHTML = "Preencha todos os campos.";
+        return false;
+      }
+
+  /*    // Envia para a API
+      fetch("/usuarios/autenticar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          emailServer: email,
+          senhaServer: senha
+        })
+      }).then(function(resposta) {*/
+
+        if (resposta.ok) {
+/*
+          resposta.json().then(function(json) {
+            sessionStorage.EMAIL_USUARIO = json.email;
+            sessionStorage.NOME_USUARIO  = json.nome;
+            sessionStorage.ID_USUARIO    = json.id;
+            sessionStorage.CPF_USUARIO   = json.cpf;
+*/
+            cardSucesso.style.display = "block";
+            mensagem_sucesso.innerHTML = "Login realizado! Redirecionando...";
+
+            setTimeout(function() {
+              window.location.href = "./dashboard/cards.html";
+            }, 1500);
+         // });
+
+        } else {
+
+          erros.push("erro");
+
+          if (erros.length >= 3) {
+            cardErro.style.display = "block";
+            mensagem_erro.innerHTML = "Você excedeu o número de tentativas. Acesso bloqueado!";
+            tentativas.innerHTML = "";
+            return false;
+          }
+
+          let restantes = 3 - erros.length;
+          cardErro.style.display = "block";
+          mensagem_erro.innerHTML = "E-mail ou senha incorretos.";
+          tentativas.innerHTML = "Tentativas restantes: " + restantes;
+        }
+
+    /*  }).catch(function(erro) {
+        cardErro.style.display = "block";
+        mensagem_erro.innerHTML = "Não foi possível conectar ao servidor.";
+        console.log(erro);
+      });*/
+
+    }
+
+  </script>
+
+</body>
+</html>
