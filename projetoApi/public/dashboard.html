@@ -2,10 +2,13 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard — MaBallet</title>
-  <link rel="stylesheet" href="../public/estilo.css" />
+
+  <link rel="stylesheet" href="/estilo.css" />
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
   <style>
     .dash-main {
       max-width: 1100px;
@@ -13,7 +16,6 @@
       padding: 60px 10%;
     }
 
-    /* KPIs */
     .kpi-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -22,11 +24,11 @@
     }
 
     .kpi-card {
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255,255,255,0.85);
       border: 1px solid #f3c6d3;
       border-radius: 20px;
       padding: 28px 24px;
-      box-shadow: 0 8px 32px rgba(209, 106, 138, 0.1);
+      box-shadow: 0 8px 32px rgba(209,106,138,0.1);
       border-top: 4px solid #d16a8a;
     }
 
@@ -39,43 +41,38 @@
     }
 
     .kpi-valor {
-      font-size: 2.4rem;
+      font-size: 2rem;
       font-weight: 700;
       color: #b76e79;
-      font-family: 'Georgia', serif;
-      line-height: 1;
-      margin-bottom: 4px;
+      font-family: Georgia, serif;
+      line-height: 1.2;
     }
 
-    .kpi-sub {
-      font-size: 12px;
-      color: #c9a0a0;
-    }
-
-    /* Gráficos */
     .graficos-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      grid-template-columns: 1fr;
       gap: 24px;
     }
 
     .grafico-card {
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255,255,255,0.85);
       border: 1px solid #f3c6d3;
       border-radius: 20px;
       padding: 28px 24px;
-      box-shadow: 0 8px 32px rgba(209, 106, 138, 0.1);
+      box-shadow: 0 8px 32px rgba(209,106,138,0.1);
     }
 
     .grafico-titulo {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: bold;
       color: #b76e79;
       margin-bottom: 20px;
-      font-family: 'Georgia', serif;
+      font-family: Georgia, serif;
     }
 
-    canvas { max-height: 240px; }
+    canvas {
+      max-height: 320px;
+    }
   </style>
 </head>
 <body>
@@ -91,53 +88,27 @@
 
   <div class="dash-main">
 
-    <h2>Painel de indicadores</h2>
+    <h2>Painel de Indicadores</h2>
 
-    <!-- KPIs -->
     <div class="kpi-grid">
+
       <div class="kpi-card">
-        <p class="kpi-label">Total de alunos</p>
-        <p class="kpi-valor">87</p>
-        <p class="kpi-sub">cadastrados no site</p>
+        <p class="kpi-label">Total de respostas</p>
+        <p class="kpi-valor" id="totalRespostas">0</p>
       </div>
-      <div class="kpi-card">
-        <p class="kpi-label">Quizzes respondidos</p>
-        <p class="kpi-valor">64</p>
-        <p class="kpi-sub">avaliações concluídas</p>
-      </div>
+
       <div class="kpi-card">
         <p class="kpi-label">Perfil mais comum</p>
-        <p class="kpi-valor" style="font-size:1.4rem">Alma Livre ✨</p>
-        <p class="kpi-sub">entre os participantes</p>
+        <p class="kpi-valor" id="perfilMaisComum">Carregando...</p>
       </div>
-      <div class="kpi-card">
-        <p class="kpi-label">Taxa de engajamento</p>
-        <p class="kpi-valor">74%</p>
-        <p class="kpi-sub">fizeram o quiz</p>
-      </div>
+
     </div>
 
-    <!-- Gráficos -->
     <div class="graficos-grid">
 
       <div class="grafico-card">
-        <p class="grafico-titulo">Distribuição de perfis</p>
+        <p class="grafico-titulo">Distribuição de Perfis</p>
         <canvas id="grafico-perfis"></canvas>
-      </div>
-
-      <div class="grafico-card">
-        <p class="grafico-titulo">O que mais atrai no ballet</p>
-        <canvas id="grafico-atracao"></canvas>
-      </div>
-
-      <div class="grafico-card">
-        <p class="grafico-titulo">Reação ao aprender algo novo</p>
-        <canvas id="grafico-reacao"></canvas>
-      </div>
-
-      <div class="grafico-card">
-        <p class="grafico-titulo">Cadastros por mês</p>
-        <canvas id="grafico-cadastros"></canvas>
       </div>
 
     </div>
@@ -149,120 +120,85 @@
   </footer>
 
   <script>
-
-    // Paleta de cores seguindo o CSS do projeto
     var CORES = [
       "#d16a8a",
       "#b76e79",
       "#e8a0bf",
-      "#f3c6d3",
-      "#9e6b6b",
-      "#c9a0a0"
+      "#f3c6d3"
     ];
 
-    // ── Gráfico 1: Rosca — perfis ──────────────────────
-    new Chart(document.getElementById("grafico-perfis"), {
-      type: "doughnut",
-      data: {
-        labels: ["Alma Livre ✨", "Espírito Poético 🌸", "Técnico Dedicado 🎯", "Estrela em Formação ⭐"],
-        datasets: [{
-          data: [28, 18, 10, 8],
-          backgroundColor: CORES,
-          borderWidth: 2,
-          borderColor: "#fff"
-        }]
-      },
-      options: {
-        cutout: "55%",
-        plugins: {
-          legend: {
-            position: "bottom",
-            labels: { font: { family: "Georgia", size: 12 }, color: "#7a4e4e" }
-          }
+    function nomePerfil(letra) {
+      if (letra == "A") return "Espírito Poético 🌸";
+      if (letra == "B") return "Técnico Dedicado 🎯";
+      if (letra == "C") return "Alma Livre ✨";
+      if (letra == "D") return "Estrela em Formação ⭐";
+      return letra;
+    }
+
+    function carregarDashboard() {
+  fetch("/quiz/dashboard")
+    .then(function (resposta) {
+      return resposta.json();
+    })
+    .then(function (dados) {
+      console.log(dados);
+
+      var listaPerfis = dados.graficos.perfis;
+
+      var labels = [];
+      var valores = [];
+
+      var totalRespostas = dados.kpis.total_quizzes || 0;
+      var maiorValor = 0;
+      var perfilMaisComum = "Nenhum";
+
+      for (var i = 0; i < listaPerfis.length; i++) {
+        var perfil = listaPerfis[i].perfil;
+        var total = Number(listaPerfis[i].quantidade);
+
+        labels.push(nomePerfil(perfil));
+        valores.push(total);
+
+        if (total > maiorValor) {
+          maiorValor = total;
+          perfilMaisComum = nomePerfil(perfil);
         }
       }
-    });
 
-    // ── Gráfico 2: Barras horizontais — o que atrai no ballet ──
-    new Chart(document.getElementById("grafico-atracao"), {
-      type: "bar",
-      data: {
-        labels: ["Beleza e elegância", "Diversão e leveza", "Palco e energia", "Disciplina técnica"],
-        datasets: [{
-          data: [30, 22, 17, 15],
-          backgroundColor: CORES[0],
-          borderRadius: 8
-        }]
-      },
-      options: {
-        indexAxis: "y",
-        plugins: { legend: { display: false } },
-        scales: {
-          x: {
-            ticks: { color: "#9e6b6b", font: { family: "Georgia" } },
-            grid:  { color: "#f3c6d3" }
-          },
-          y: {
-            ticks: { color: "#7a4e4e", font: { family: "Georgia", size: 12 } },
-            grid:  { display: false }
+      document.getElementById("totalRespostas").innerHTML = totalRespostas;
+      document.getElementById("perfilMaisComum").innerHTML = perfilMaisComum;
+
+      criarGrafico(labels, valores);
+    })
+    .catch(function (erro) {
+      console.log("Erro ao carregar dashboard:", erro);
+    });
+}
+
+    function criarGrafico(labels, valores) {
+      new Chart(document.getElementById("grafico-perfis"), {
+        type: "doughnut",
+        data: {
+          labels: labels,
+          datasets: [{
+            data: valores,
+            backgroundColor: CORES,
+            borderWidth: 2,
+            borderColor: "#ffffff"
+          }]
+        },
+        options: {
+          cutout: "55%",
+          plugins: {
+            legend: {
+              position: "bottom"
+            }
           }
         }
-      }
-    });
+      });
+    }
 
-    // ── Gráfico 3: Pizza — reação ao aprender ──────────
-    new Chart(document.getElementById("grafico-reacao"), {
-      type: "pie",
-      data: {
-        labels: ["Pratica logo", "Chega preparado", "Com orientação", "Ama o desafio"],
-        datasets: [{
-          data: [25, 20, 12, 7],
-          backgroundColor: CORES,
-          borderWidth: 2,
-          borderColor: "#fff"
-        }]
-      },
-      options: {
-        plugins: {
-          legend: {
-            position: "bottom",
-            labels: { font: { family: "Georgia", size: 12 }, color: "#7a4e4e" }
-          }
-        }
-      }
-    });
-
-    // ── Gráfico 4: Linha — cadastros por mês ───────────
-    new Chart(document.getElementById("grafico-cadastros"), {
-      type: "line",
-      data: {
-        labels: ["Nov", "Dez", "Jan", "Fev", "Mar", "Abr"],
-        datasets: [{
-          label: "Cadastros",
-          data: [8, 12, 19, 15, 21, 12],
-          borderColor: "#d16a8a",
-          backgroundColor: "rgba(209, 106, 138, 0.1)",
-          tension: 0.4,
-          fill: true,
-          pointRadius: 5,
-          pointBackgroundColor: "#d16a8a"
-        }]
-      },
-      options: {
-        plugins: { legend: { display: false } },
-        scales: {
-          x: {
-            ticks: { color: "#9e6b6b", font: { family: "Georgia" } },
-            grid:  { color: "#f3c6d3" }
-          },
-          y: {
-            ticks: { color: "#9e6b6b", font: { family: "Georgia" }, stepSize: 5 },
-            grid:  { color: "#f3c6d3" }
-          }
-        }
-      }
-    });
-
+    carregarDashboard();
   </script>
 
 </body>

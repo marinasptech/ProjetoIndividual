@@ -1,5 +1,5 @@
 
-var URL_API = "http://localhost:3000";
+var URL_API = "http://localhost:3333";
 
 var tentativas = 0;
 
@@ -120,7 +120,7 @@ function validarSessao() {
 
             mostrarSucesso("Login realizado! Redirecionando...");
             setTimeout(function () {
-                window.location.href = "../dashboard/dashboard.html";
+                window.location.href = "quiz.html";
             }, 1500);
 
         } else {
@@ -145,5 +145,5 @@ function validarSessao() {
 
 function limparSessao() {
     sessionStorage.clear();
-    window.location.href = "../public/login.html";
+    window.location.href = "login.html";
 }

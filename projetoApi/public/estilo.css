@@ -61,7 +61,7 @@ nav a.ativo {
 /* HERO */
 .hero {
     height: 90vh;
-    background: url("../public/assets/ballet.jpg") center/cover;
+    background: url("/assets/ballet.jpg") center/cover;
     position: relative;
 }
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quiz — MaBallet</title>
-  <link rel="stylesheet" href="../public/estilo.css" />
+  <link rel="stylesheet" href="/estilo.css" />
 </head>
 <body>
 
@@ -55,7 +55,7 @@
         </div>
 
         <button class="btn-refazer" onclick="reiniciar()">Refazer quiz</button>
-        <button class="botao"       onclick="salvar()" style="margin-top:0">Salvar resultado</button>
+        <button class="botao" onclick="salvar()" style="margin-top:0">Salvar resultado</button>
 
         <p class="aviso-salvar" id="aviso-salvar"></p>
       </div>
@@ -305,56 +305,66 @@
       mostrarPergunta();
     }
 
-    function salvar() {
-      var aviso   = document.getElementById("aviso-salvar");
-      var usuario = JSON.parse(sessionStorage.getItem("usuario"));
+  function salvar() {
+  console.log("entrou no salvar");
 
-      if (usuario === null) {
-        aviso.className   = "aviso-salvar erro";
-        aviso.textContent = "Faça login para salvar seu resultado.";
-        return;
-      }
+  var aviso = document.getElementById("aviso-salvar");
+  var usuario = JSON.parse(sessionStorage.getItem("usuario"));
 
-      var chave   = calcularPerfil();
-      var acertos = 0;
-      for (var i = 0; i < respostas.length; i++) {
-        if (respostas[i].perfil === chave) {
-          acertos = acertos + 1;
-        }
-      }
+  if (usuario === null) {
+    aviso.className = "aviso-salvar erro";
+    aviso.textContent = "Faça login para salvar seu resultado.";
+    return;
+  }
 
-      var corpo = {
-        usuario_id: usuario.id,
-        perfil:     chave,
-        pontuacao:  acertos,
-        cenario:    respostas[0].label,
-        estilo:     respostas[1].label,
-        reacao:     respostas[2].label,
-        motivacao:  respostas[3].label
-      };
+  var chave = calcularPerfil();
+  var acertos = 0;
 
-      fetch("http://localhost:3000/quiz", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(corpo)
-      })
-      .then(function (resposta) {
-        return resposta.json();
-      })
-      .then(function (dados) {
-        if (dados.id) {
-          aviso.className   = "aviso-salvar sucesso";
-          aviso.textContent = "Resultado salvo com sucesso!";
-        } else {
-          aviso.className   = "aviso-salvar erro";
-          aviso.textContent = "Erro: " + dados.mensagem;
-        }
-      })
-      .catch(function () {
-        aviso.className   = "aviso-salvar erro";
-        aviso.textContent = "Não foi possível conectar ao servidor.";
-      });
+  for (var i = 0; i < respostas.length; i++) {
+    if (respostas[i].perfil === chave) {
+      acertos++;
     }
+  }
+
+  var corpo = {
+    usuario_id: usuario.id,
+    perfil: chave,
+    pontuacao: acertos,
+    cenario: respostas[0].label,
+    estilo: respostas[1].label,
+    reacao: respostas[2].label,
+    motivacao: respostas[3].label
+  };
+
+  fetch("/quiz", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(corpo)
+  })
+  .then(function (resposta) {
+    return resposta.json();
+  })
+  .then(function (dados) {
+    if (dados.id) {
+      aviso.className = "aviso-salvar sucesso";
+      aviso.textContent = "Resultado salvo com sucesso! Redirecionando...";
+
+      setTimeout(function () {
+        window.location.href = "dashboard.html";
+      }, 1500);
+
+    } else {
+      aviso.className = "aviso-salvar erro";
+      aviso.textContent = dados.mensagem || "Erro ao salvar.";
+    }
+  })
+  .catch(function () {
+    aviso.className = "aviso-salvar erro";
+    aviso.textContent = "Não foi possível conectar ao servidor.";
+  });
+}
 
 
     // Inicia o quiz quando a página termina de carregar

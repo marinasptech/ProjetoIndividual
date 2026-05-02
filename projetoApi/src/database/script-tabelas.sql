@@ -15,13 +15,13 @@ CREATE TABLE usuarios (
 CREATE TABLE quiz_respostas (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   fkUsuario INT NOT NULL,
-  CONSTRAINT cFkUsuario FOREIGN KEY (usuarioId) REFERENCES usuarios(id)
+  CONSTRAINT cFkUsuario FOREIGN KEY (fkUsuario) REFERENCES usuarios(id),
   perfil VARCHAR(30) NOT NULL,
   pontuacao INT NOT NULL,
   cenario VARCHAR(80),
   estilo VARCHAR(80),
   reacao VARCHAR(80),
   motivacao VARCHAR(80),
-  respondido DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  respondido DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
   
 );

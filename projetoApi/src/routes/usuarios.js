@@ -79,7 +79,7 @@ router.post("/login", function (req, res) {
 // GET /usuarios — Lista todos os usuários
 // ─────────────────────────────────────────────────────────────────
 router.get("/", function (req, res) {
-    db.executar("SELECT id, nome, email, criado_em FROM usuarios ORDER BY criado_em DESC")
+    db.executar("SELECT id, nome, email, criado FROM usuarios ORDER BY criado DESC")
         .then(function (resultado) {
             return res.status(200).json(resultado);
         })
