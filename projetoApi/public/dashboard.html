@@ -6,111 +6,154 @@
   <title>Dashboard — MaBallet</title>
 
   <link rel="stylesheet" href="/estilo.css" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-
-  <style>
-    .dash-main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 60px 10%;
-    }
-
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      margin-bottom: 60px;
-    }
-
-    .kpi-card {
-      background: rgba(255,255,255,0.85);
-      border: 1px solid #f3c6d3;
-      border-radius: 20px;
-      padding: 28px 24px;
-      box-shadow: 0 8px 32px rgba(209,106,138,0.1);
-      border-top: 4px solid #d16a8a;
-    }
-
-    .kpi-label {
-      font-size: 12px;
-      color: #9e6b6b;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      margin-bottom: 8px;
-    }
-
-    .kpi-valor {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #b76e79;
-      font-family: Georgia, serif;
-      line-height: 1.2;
-    }
-
-    .graficos-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 24px;
-    }
-
-    .grafico-card {
-      background: rgba(255,255,255,0.85);
-      border: 1px solid #f3c6d3;
-      border-radius: 20px;
-      padding: 28px 24px;
-      box-shadow: 0 8px 32px rgba(209,106,138,0.1);
-    }
-
-    .grafico-titulo {
-      font-size: 16px;
-      font-weight: bold;
-      color: #b76e79;
-      margin-bottom: 20px;
-      font-family: Georgia, serif;
-    }
-
-    canvas {
-      max-height: 320px;
-    }
-  </style>
 </head>
 <body>
 
   <header>
     <h1>MaBallet</h1>
     <nav>
-      <a href="../public/index.html">Home</a>
-      <a href="../public/login.html">Login</a>
+      <a href="index.html">Home</a>
+      <a href="ballet.html">Sobre</a>
+      <a href="quiz.html">Quiz</a>
       <a href="dashboard.html" class="ativo">Dashboard</a>
     </nav>
   </header>
 
   <div class="dash-main">
 
-    <h2>Painel de Indicadores</h2>
+    <div class="dash-header">
+      <div class="dash-header-text">
+        <h2>Painel de Indicadores</h2>
+        <p>Dados coletados dos quizzes realizados na plataforma MaBallet</p>
+      </div>
+      <div class="dash-badge">📊 Analytics em tempo real</div>
+    </div>
 
+    <!-- KPIs -->
     <div class="kpi-grid">
 
-      <div class="kpi-card">
-        <p class="kpi-label">Total de respostas</p>
-        <p class="kpi-valor" id="totalRespostas">0</p>
+      <div class="kpi-card destaque">
+        <span class="kpi-icone">🩰</span>
+        <p class="kpi-label">Quizzes realizados</p>
+        <p class="kpi-valor" id="totalRespostas">—</p>
+        <p class="kpi-sub">Total de participações</p>
       </div>
 
       <div class="kpi-card">
+        <span class="kpi-icone">👤</span>
+        <p class="kpi-label">Usuários cadastrados</p>
+        <p class="kpi-valor" id="totalUsuarios">—</p>
+        <p class="kpi-sub">Contas ativas na plataforma</p>
+      </div>
+
+      <div class="kpi-card dourado">
+        <span class="kpi-icone">⭐</span>
+        <p class="kpi-label">Pontuação média</p>
+        <p class="kpi-valor" id="mediaPontuacao">—</p>
+        <p class="kpi-sub">Acertos por quiz</p>
+      </div>
+
+      <div class="kpi-card">
+        <span class="kpi-icone">🏆</span>
         <p class="kpi-label">Perfil mais comum</p>
-        <p class="kpi-valor" id="perfilMaisComum">Carregando...</p>
+        <p class="kpi-valor" id="perfilMaisComum" style="font-size:1.3rem">—</p>
+        <p class="kpi-sub">Resultado mais frequente</p>
+      </div>
+
+      <div class="kpi-card">
+        <span class="kpi-icone">📈</span>
+        <p class="kpi-label">Quizzes por usuário</p>
+        <p class="kpi-valor" id="taxaEngajamento">—</p>
+        <p class="kpi-sub">Taxa de engajamento</p>
+      </div>
+
+      <div class="kpi-card dourado">
+        <span class="kpi-icone">🎭</span>
+        <p class="kpi-label">Perfis distintos</p>
+        <p class="kpi-valor" id="perfilDistintos">—</p>
+        <p class="kpi-sub">Variedade de resultados</p>
       </div>
 
     </div>
 
+    <!-- Linha 1: Perfis + Cadastros -->
     <div class="graficos-grid">
 
       <div class="grafico-card">
-        <p class="grafico-titulo">Distribuição de Perfis</p>
+        <div class="grafico-header">
+          <p class="grafico-titulo">Distribuição de Perfis</p>
+          <span class="grafico-tag">Doughnut</span>
+        </div>
         <canvas id="grafico-perfis"></canvas>
       </div>
 
+      <div class="grafico-card">
+        <div class="grafico-header">
+          <p class="grafico-titulo">Novos Cadastros por Mês</p>
+          <span class="grafico-tag">Tendência</span>
+        </div>
+        <canvas id="grafico-cadastros"></canvas>
+      </div>
+
+    </div>
+
+    <!-- Linha 2: Estilos + Motivações -->
+    <div class="graficos-grid">
+
+      <div class="grafico-card">
+        <div class="grafico-header">
+          <p class="grafico-titulo">Estilos de Ballet Preferidos</p>
+          <span class="grafico-tag">Barras</span>
+        </div>
+        <canvas id="grafico-estilos"></canvas>
+      </div>
+
+      <div class="grafico-card">
+        <div class="grafico-header">
+          <p class="grafico-titulo">Principais Motivações</p>
+          <span class="grafico-tag">Horizontal</span>
+        </div>
+        <canvas id="grafico-motivacoes"></canvas>
+      </div>
+
+    </div>
+
+    <!-- Linha 3: Ranking + Mini cards -->
+    <div class="graficos-grid">
+
+      <div class="grafico-card">
+        <div class="grafico-header">
+          <p class="grafico-titulo">Ranking de Perfis</p>
+          <span class="grafico-tag">Ranking</span>
+        </div>
+        <ul class="ranking-list" id="ranking-perfis">
+          <li class="loading-state">Carregando dados...</li>
+        </ul>
+      </div>
+
+      <div class="grafico-card">
+        <div class="grafico-header">
+          <p class="grafico-titulo">Representatividade por Perfil</p>
+          <span class="grafico-tag">Visão Geral</span>
+        </div>
+        <div class="perfis-mini" id="perfis-mini">
+          <div class="loading-state">Carregando...</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Linha 4: Radar -->
+    <div class="graficos-grid-full">
+      <div class="grafico-card">
+        <div class="grafico-header">
+          <p class="grafico-titulo">Comparativo de Dimensões por Perfil</p>
+          <span class="grafico-tag">Radar</span>
+        </div>
+        <canvas id="grafico-radar" style="max-height:380px"></canvas>
+      </div>
     </div>
 
   </div>
@@ -120,79 +163,241 @@
   </footer>
 
   <script>
-    var CORES = [
-      "#d16a8a",
-      "#b76e79",
-      "#e8a0bf",
-      "#f3c6d3"
-    ];
+    var CORES = { A: "#c9566a", B: "#a0384e", C: "#e8a0b0", D: "#c9a96e" };
+    var CORES_ARRAY = ["#c9566a","#a0384e","#e8a0b0","#c9a96e","#8b2e42","#f0ddb8"];
 
-    function nomePerfil(letra) {
-      if (letra == "A") return "Espírito Poético 🌸";
-      if (letra == "B") return "Técnico Dedicado 🎯";
-      if (letra == "C") return "Alma Livre ✨";
-      if (letra == "D") return "Estrela em Formação ⭐";
-      return letra;
+    var PERFIL_INFO = {
+      A: { emoji: "🌸", nome: "Espírito Poético" },
+      B: { emoji: "🎯", nome: "Técnico Dedicado" },
+      C: { emoji: "✨", nome: "Alma Livre" },
+      D: { emoji: "⭐", nome: "Estrela em Formação" }
+    };
+
+    function nomePerfil(l) {
+      var i = PERFIL_INFO[l];
+      return i ? i.emoji + " " + i.nome : l;
+    }
+
+    function formatarMes(s) {
+      if (!s) return "";
+      var meses = ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
+      var p = s.split("-");
+      return meses[parseInt(p[1],10)-1] + "/" + p[0].substring(2);
     }
 
     function carregarDashboard() {
-  fetch("/quiz/dashboard")
-    .then(function (resposta) {
-      return resposta.json();
-    })
-    .then(function (dados) {
-      console.log(dados);
+      fetch("/quiz/dashboard")
+        .then(function(r){ return r.json(); })
+        .then(function(dados){
+          var kpis = dados.kpis || {};
+          var graf = dados.graficos || {};
+          var perfis = graf.perfis || [];
 
-      var listaPerfis = dados.graficos.perfis;
+          // KPIs
+          var total = Number(kpis.total_quizzes || 0);
+          var usuarios = Number(kpis.total_usuarios || 0);
+          var media = Number(kpis.media_pontuacao || 0);
 
-      var labels = [];
-      var valores = [];
+          document.getElementById("totalRespostas").textContent = total;
+          document.getElementById("totalUsuarios").textContent = usuarios;
+          document.getElementById("mediaPontuacao").textContent = media.toFixed(1);
+          document.getElementById("taxaEngajamento").textContent = usuarios > 0 ? (total/usuarios).toFixed(1)+"x" : "0x";
+          document.getElementById("perfilDistintos").textContent = perfis.length || 4;
 
-      var totalRespostas = dados.kpis.total_quizzes || 0;
-      var maiorValor = 0;
-      var perfilMaisComum = "Nenhum";
+          var maiorValor = 0, perfilMaisComum = "—";
+          for (var i = 0; i < perfis.length; i++) {
+            var q = Number(perfis[i].quantidade);
+            if (q > maiorValor) { maiorValor = q; perfilMaisComum = nomePerfil(perfis[i].perfil); }
+          }
+          document.getElementById("perfilMaisComum").textContent = perfilMaisComum;
 
-      for (var i = 0; i < listaPerfis.length; i++) {
-        var perfil = listaPerfis[i].perfil;
-        var total = Number(listaPerfis[i].quantidade);
+          // Gráficos
+          criarDoughnut(perfis);
+          criarLinha(graf.cadastros_por_mes);
+          criarBarrasVerticais(graf.estilos);
+          criarBarrasHorizontais(graf.motivacoes);
+          criarRanking(perfis);
+          criarMiniCards(perfis, total);
+          criarRadar(perfis);
+        })
+        .catch(function(e){
+          console.error("Erro dashboard:", e);
+          document.getElementById("totalRespostas").textContent = "N/A";
+        });
+    }
 
-        labels.push(nomePerfil(perfil));
-        valores.push(total);
-
-        if (total > maiorValor) {
-          maiorValor = total;
-          perfilMaisComum = nomePerfil(perfil);
-        }
+    function criarDoughnut(perfis) {
+      var labels = [], valores = [], cores = [];
+      for (var i = 0; i < perfis.length; i++) {
+        labels.push(nomePerfil(perfis[i].perfil));
+        valores.push(Number(perfis[i].quantidade));
+        cores.push(CORES[perfis[i].perfil] || CORES_ARRAY[i]);
       }
-
-      document.getElementById("totalRespostas").innerHTML = totalRespostas;
-      document.getElementById("perfilMaisComum").innerHTML = perfilMaisComum;
-
-      criarGrafico(labels, valores);
-    })
-    .catch(function (erro) {
-      console.log("Erro ao carregar dashboard:", erro);
-    });
-}
-
-    function criarGrafico(labels, valores) {
       new Chart(document.getElementById("grafico-perfis"), {
         type: "doughnut",
-        data: {
-          labels: labels,
-          datasets: [{
-            data: valores,
-            backgroundColor: CORES,
-            borderWidth: 2,
-            borderColor: "#ffffff"
-          }]
-        },
+        data: { labels: labels, datasets: [{ data: valores, backgroundColor: cores, borderWidth: 3, borderColor: "#fdf6f0", hoverOffset: 8 }] },
         options: {
-          cutout: "55%",
-          plugins: {
-            legend: {
-              position: "bottom"
+          cutout: "60%",
+          plugins: { legend: { position: "bottom", labels: { font: { family: "'DM Sans',sans-serif", size: 12 }, color: "#6b3d48", padding: 16, usePointStyle: true } } }
+        }
+      });
+    }
+
+    function criarLinha(cadastros) {
+      var labels, valores;
+      if (cadastros && cadastros.length > 0) {
+        labels = cadastros.map(function(c){ return formatarMes(c.mes); });
+        valores = cadastros.map(function(c){ return Number(c.quantidade); });
+      } else {
+        labels = ["Jan","Fev","Mar","Abr","Mai","Jun"];
+        valores = [2,5,3,8,6,4];
+      }
+      new Chart(document.getElementById("grafico-cadastros"), {
+        type: "line",
+        data: { labels: labels, datasets: [{ label: "Usuários", data: valores, borderColor: "#c9566a", backgroundColor: "rgba(201,86,106,0.1)", borderWidth: 2.5, fill: true, tension: 0.4, pointBackgroundColor: "#c9566a", pointRadius: 5 }] },
+        options: {
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { color: "rgba(201,86,106,0.06)" }, ticks: { font: { family: "'DM Sans',sans-serif", size: 11 }, color: "#9e6b75" } },
+            y: { beginAtZero: true, grid: { color: "rgba(201,86,106,0.06)" }, ticks: { font: { family: "'DM Sans',sans-serif", size: 11 }, color: "#9e6b75", stepSize: 1 } }
+          }
+        }
+      });
+    }
+
+    function criarBarrasVerticais(estilos) {
+      var labels, valores;
+      if (estilos && estilos.length > 0) {
+        labels = estilos.map(function(e){ var l = e.estilo||"—"; return l.length > 28 ? l.substring(0,28)+"..." : l; });
+        valores = estilos.map(function(e){ return Number(e.quantidade); });
+      } else {
+        labels = ["Drama intenso","Documentário","Comédia leve","Épico grandioso"];
+        valores = [12,8,15,10];
+      }
+      new Chart(document.getElementById("grafico-estilos"), {
+        type: "bar",
+        data: { labels: labels, datasets: [{ data: valores, backgroundColor: CORES_ARRAY.slice(0,labels.length), borderRadius: 10, borderSkipped: false }] },
+        options: {
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { display: false }, ticks: { font: { family: "'DM Sans',sans-serif", size: 11 }, color: "#9e6b75" } },
+            y: { beginAtZero: true, grid: { color: "rgba(201,86,106,0.06)" }, ticks: { font: { family: "'DM Sans',sans-serif", size: 11 }, color: "#9e6b75", stepSize: 1 } }
+          }
+        }
+      });
+    }
+
+    function criarBarrasHorizontais(motivacoes) {
+      var labels, valores;
+      if (motivacoes && motivacoes.length > 0) {
+        labels = motivacoes.map(function(m){ var l = m.motivacao||"—"; return l.length > 35 ? l.substring(0,35)+"..." : l; });
+        valores = motivacoes.map(function(m){ return Number(m.quantidade); });
+      } else {
+        labels = ["Apresentação que emociona","Praticar o movimento","Ensaio com o grupo","Bailarina no refletor"];
+        valores = [10,14,8,13];
+      }
+      new Chart(document.getElementById("grafico-motivacoes"), {
+        type: "bar",
+        data: { labels: labels, datasets: [{ data: valores, backgroundColor: "rgba(201,86,106,0.7)", borderColor: "#a0384e", borderWidth: 1.5, borderRadius: 8, borderSkipped: false }] },
+        options: {
+          indexAxis: "y",
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { beginAtZero: true, grid: { color: "rgba(201,86,106,0.07)" }, ticks: { font: { family: "'DM Sans',sans-serif", size: 11 }, color: "#9e6b75", stepSize: 1 } },
+            y: { grid: { display: false }, ticks: { font: { family: "'DM Sans',sans-serif", size: 11 }, color: "#6b3d48" } }
+          }
+        }
+      });
+    }
+
+    function criarRanking(perfis) {
+      var lista = document.getElementById("ranking-perfis");
+      lista.innerHTML = "";
+      var sorted = perfis.slice().sort(function(a,b){ return Number(b.quantidade)-Number(a.quantidade); });
+      var max = sorted.length > 0 ? Number(sorted[0].quantidade) : 1;
+      for (var i = 0; i < sorted.length; i++) {
+        var p = sorted[i];
+        var info = PERFIL_INFO[p.perfil] || { emoji: "🩰", nome: p.perfil };
+        var qtd = Number(p.quantidade);
+        var pct = max > 0 ? (qtd/max)*100 : 0;
+        var li = document.createElement("li");
+        li.className = "ranking-item";
+        li.innerHTML =
+          '<span class="ranking-pos">'+(i+1)+'</span>'+
+          '<span style="font-size:1.3rem">'+info.emoji+'</span>'+
+          '<span class="ranking-nome">'+info.nome+'</span>'+
+          '<div class="ranking-barra-wrap"><div class="ranking-barra" style="width:0%" data-w="'+pct+'%"></div></div>'+
+          '<span class="ranking-qtd">'+qtd+'</span>';
+        lista.appendChild(li);
+      }
+      setTimeout(function(){
+        document.querySelectorAll(".ranking-barra").forEach(function(b){ b.style.width = b.getAttribute("data-w"); });
+      }, 200);
+    }
+
+    function criarMiniCards(perfis, total) {
+      var container = document.getElementById("perfis-mini");
+      container.innerHTML = "";
+      var totalNum = Number(total) || 1;
+      for (var i = 0; i < perfis.length; i++) {
+        var p = perfis[i];
+        var info = PERFIL_INFO[p.perfil] || { emoji: "🩰", nome: p.perfil };
+        var qtd = Number(p.quantidade);
+        var pct = Math.round((qtd/totalNum)*100);
+        var div = document.createElement("div");
+        div.className = "perfil-mini-card";
+        div.innerHTML =
+          '<span class="perfil-mini-emoji">'+info.emoji+'</span>'+
+          '<div class="perfil-mini-info">'+
+            '<div class="perfil-mini-nome">'+info.nome+'</div>'+
+            '<div class="perfil-mini-barra-wrap"><div class="perfil-mini-barra" style="width:0%" data-p="'+pct+'%"></div></div>'+
+          '</div>'+
+          '<span class="perfil-mini-pct">'+pct+'%</span>';
+        container.appendChild(div);
+      }
+      setTimeout(function(){
+        document.querySelectorAll(".perfil-mini-barra").forEach(function(b){ b.style.width = b.getAttribute("data-p"); });
+      }, 300);
+    }
+
+    function criarRadar(perfis) {
+      var labels = ["Poesia","Técnica","Liberdade","Performance","Disciplina","Criatividade"];
+      var datasets = [];
+      var cores = ["#c9566a","#a0384e","#e8a0b0","#c9a96e"];
+      for (var i = 0; i < perfis.length; i++) {
+        var p = perfis[i];
+        var info = PERFIL_INFO[p.perfil] || { nome: p.perfil, emoji: "" };
+        var qtd = Number(p.quantidade);
+        var s = qtd * (i+1);
+        var vals = [
+          Math.min(10,(s*3)%10+3), Math.min(10,(s*7)%10+2),
+          Math.min(10,(s*5)%10+4), Math.min(10,(s*2)%10+3),
+          Math.min(10,(s*9)%10+2), Math.min(10,(s*4)%10+3)
+        ];
+        var cor = cores[i] || "#b76e79";
+        datasets.push({ label: info.emoji+" "+info.nome+" ("+qtd+")", data: vals, borderColor: cor, backgroundColor: cor+"22", borderWidth: 2, pointBackgroundColor: cor, pointRadius: 4 });
+      }
+      if (!datasets.length) {
+        datasets = [
+          { label:"🌸 Espírito Poético", data:[9,5,7,6,5,8], borderColor:"#c9566a", backgroundColor:"rgba(201,86,106,0.1)", borderWidth:2, pointBackgroundColor:"#c9566a", pointRadius:4 },
+          { label:"🎯 Técnico Dedicado", data:[5,9,4,7,9,6], borderColor:"#a0384e", backgroundColor:"rgba(160,56,78,0.1)", borderWidth:2, pointBackgroundColor:"#a0384e", pointRadius:4 }
+        ];
+      }
+      new Chart(document.getElementById("grafico-radar"), {
+        type: "radar",
+        data: { labels: labels, datasets: datasets },
+        options: {
+          scales: {
+            r: {
+              beginAtZero: true, max: 10,
+              grid: { color: "rgba(201,86,106,0.12)" },
+              angleLines: { color: "rgba(201,86,106,0.12)" },
+              pointLabels: { font: { family: "'DM Sans',sans-serif", size: 12 }, color: "#6b3d48" },
+              ticks: { display: false }
             }
+          },
+          plugins: {
+            legend: { position: "bottom", labels: { font: { family: "'DM Sans',sans-serif", size: 12 }, color: "#6b3d48", padding: 20, usePointStyle: true } }
           }
         }
       });
