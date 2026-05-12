@@ -4,9 +4,9 @@ var URL_API = "http://localhost:3333";
 var tentativas = 0;
 
 function mostrarErro(mensagem) {
-    var caixaErro    = document.getElementById("cardErro");
-    var textoErro    = document.getElementById("mensagem_erro");
-    var caixaSucesso = document.getElementById("cardSucesso");
+    var caixaErro    = cardErro;
+    var textoErro    = mensagem_erro;
+    var caixaSucesso = cardSucesso;
 
     textoErro.innerHTML        = mensagem;
     caixaErro.style.display    = "block";
@@ -14,9 +14,9 @@ function mostrarErro(mensagem) {
 }
 
 function mostrarSucesso(mensagem) {
-    var caixaSucesso = document.getElementById("cardSucesso");
-    var textoSucesso = document.getElementById("mensagem_sucesso");
-    var caixaErro    = document.getElementById("cardErro");
+    var caixaSucesso = cardSucesso;
+    var textoSucesso = mensagem_sucesso;
+    var caixaErro    = cardErro;
 
     textoSucesso.innerHTML     = mensagem;
     caixaSucesso.style.display = "block";
@@ -24,10 +24,10 @@ function mostrarSucesso(mensagem) {
 }
 
 function cadastrar() {
-    var nome     = document.getElementById("idNome").value;
-    var email    = document.getElementById("idEmail").value;
-    var senha    = document.getElementById("idSenha").value;
-    var confirma = document.getElementById("idConfirmaSenha").value;
+    var nome     = idNome.value;
+    var email    = idEmail.value;
+    var senha    = idSenha.value;
+    var confirma = idConfirmaSenha.value;
 
     // Validações — verifica cada campo antes de enviar
     if (nome === "" || email === "" || senha === "" || confirma === "") {
@@ -86,8 +86,8 @@ function cadastrar() {
 }
 
 function validarSessao() {
-    var email = document.getElementById("idEmail").value;
-    var senha = document.getElementById("idSenha").value;
+    var email = idEmail.value;
+    var senha = idSenha.value;
 
     // Bloqueia se já errou 3 vezes
     if (tentativas >= 3) {
@@ -127,7 +127,7 @@ function validarSessao() {
             tentativas = tentativas + 1;
 
             var restantes = 3 - tentativas;
-            var spanTentativas = document.getElementById("tentativas");
+            var spanTentativas = tentativas;
 
             if (tentativas >= 3) {
                 spanTentativas.textContent = "Acesso bloqueado!";

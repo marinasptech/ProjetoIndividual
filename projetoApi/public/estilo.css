@@ -1,9 +1,5 @@
-/* ═══════════════════════════════════════════════════════════════
-   MaBallet — estilo.css
-   Design system unificado baseado no dashboard/quiz
-   ═══════════════════════════════════════════════════════════════ */
 
-/* ── VARIÁVEIS GLOBAIS ─────────────────────────────────────────── */
+/* ── VARIÁVEIS GLOBAIS */
 :root {
   --rosa-escuro:   #a0384e;
   --rosa-medio:    #c9566a;
@@ -20,14 +16,14 @@
   --sombra-hover:  0 16px 56px rgba(160, 56, 78, 0.22);
 }
 
-/* ── RESET ─────────────────────────────────────────────────────── */
+/*  RESET  */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* ── BASE ──────────────────────────────────────────────────────── */
+/*  BASE  */
 body {
   font-family: 'DM Sans', 'Georgia', sans-serif;
   background: var(--creme);
@@ -35,7 +31,12 @@ body {
   min-height: 100vh;
 }
 
-/* ── HEADER / NAVBAR ───────────────────────────────────────────── */
+body::selection {
+    background-color: var(--rosa-medio);
+    color: var(--dourado-claro);
+}
+
+/* ── HEADER / NAVBAR  */
 header {
   display: flex;
   justify-content: space-between;
@@ -93,9 +94,7 @@ footer {
   background: var(--branco);
 }
 
-/* ══════════════════════════════════════════════════════════════════
-   INDEX — página inicial
-   ══════════════════════════════════════════════════════════════════ */
+/* INDEX — página inicial */
 
 .hero {
   height: 90vh;
@@ -245,9 +244,7 @@ section h2::after {
   box-shadow: 0 12px 40px rgba(0,0,0,0.2);
 }
 
-/* ══════════════════════════════════════════════════════════════════
-   BALLET.HTML — história e linha do tempo
-   ══════════════════════════════════════════════════════════════════ */
+/* BALLET.HTML — história e linha do tempo*/
 
 .hero-ballet {
   background: linear-gradient(135deg, var(--rosa-escuro) 0%, #6b1f30 100%);

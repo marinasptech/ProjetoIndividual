@@ -16,8 +16,10 @@
     <nav>
       <a href="index.html">Home</a>
       <a href="ballet.html">Sobre</a>
+      <a href="cadastro.html">Cadastro</a>
+      <a href="login.html">Login</a>
       <a href="quiz.html">Quiz</a>
-      <a href="dashboard.html" class="ativo">Dashboard</a>
+      <a href="dashboard.html" class="ativo">>Dashboard</a>
     </nav>
   </header>
 
@@ -28,7 +30,7 @@
         <h2>Painel de Indicadores</h2>
         <p>Dados coletados dos quizzes realizados na plataforma MaBallet</p>
       </div>
-      <div class="dash-badge">📊 Analytics em tempo real</div>
+      <div class="dash-badge">📊 em tempo real</div>
     </div>
 
     <!-- KPIs -->
@@ -216,7 +218,7 @@
           criarLinha(graf.cadastros_por_mes);
           criarBarrasVerticais(graf.estilos);
           criarBarrasHorizontais(graf.motivacoes);
-          criarRanking(perfis);
+         // criarRanking(perfis);
           criarMiniCards(perfis, total);
           criarRadar(perfis);
         })
@@ -333,7 +335,7 @@
       setTimeout(function(){
         document.querySelectorAll(".ranking-barra").forEach(function(b){ b.style.width = b.getAttribute("data-w"); });
       }, 200);
-    }
+    } 
 
     function criarMiniCards(perfis, total) {
       var container = document.getElementById("perfis-mini");

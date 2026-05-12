@@ -25,3 +25,5 @@ CREATE TABLE quiz_respostas (
   respondido DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
   
 );
+
+select * from quiz_respostas;
