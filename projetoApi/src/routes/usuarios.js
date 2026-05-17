@@ -75,18 +75,4 @@ router.post("/login", function (req, res) {
         });
 });
 
-// ─────────────────────────────────────────────────────────────────
-// GET /usuarios — Lista todos os usuários
-// ─────────────────────────────────────────────────────────────────
-router.get("/", function (req, res) {
-    db.executar("SELECT id, nome, email, criado FROM usuarios ORDER BY criado DESC")
-        .then(function (resultado) {
-            return res.status(200).json(resultado);
-        })
-        .catch(function (erro) {
-            console.error("Erro ao listar usuários:", erro);
-            return res.status(500).json({ mensagem: "Erro interno no servidor." });
-        });
-});
-
 module.exports = router;
