@@ -17,7 +17,7 @@
 }
 
 /*  RESET  */
-*, *::before, *::after {
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -96,10 +96,23 @@ footer {
 
 /* INDEX — página inicial */
 
-.hero {
-  height: 90vh;
-  background: url("/assets/ballet.jpg") center/cover no-repeat;
+.hero, .hero-ballet {
+  /*height: 90vh;
+  background: url("/assets/ballet.jpg") center/cover no-repeat;*/
   position: relative;
+  min-height:100vh;
+  background:
+  linear-gradient(135deg, var(--rosa-escuro) 0%, #6b1f30 100%),
+    url('assets/ballet1.jpg');
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:0 8%;
+    /*padding: 100px 10% 80px;*/
+  overflow: hidden;
 }
 
 .hero-text {
@@ -109,16 +122,20 @@ footer {
   color: white;
 }
 
-.hero-text h2 {
+.hero-text h2, .hero-ballet h2 {
   font-size: 65px;
   font-family: 'Playfair Display', 'Times New Roman', serif;
   line-height: 1.1;
 }
 
 .hero-text p {
-  margin-top: 10px;
-  font-size: 18px;
   opacity: 0.9;
+  margin-top:20px;
+  color: rgba(255,255,255,0.75);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
 }
 
 /* Seções genéricas */
@@ -244,15 +261,6 @@ section h2::after {
   box-shadow: 0 12px 40px rgba(0,0,0,0.2);
 }
 
-/* BALLET.HTML — história e linha do tempo*/
-
-.hero-ballet {
-  background: linear-gradient(135deg, var(--rosa-escuro) 0%, #6b1f30 100%);
-  padding: 100px 10% 80px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
 
 .hero-ballet::before {
   content: "🩰";
@@ -264,23 +272,9 @@ section h2::after {
   pointer-events: none;
 }
 
-.hero-ballet h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 3.2rem;
-  color: white;
-  margin-bottom: 16px;
-  text-align: center;
-}
 
 .hero-ballet h2::after { display: none; }
 
-.hero-ballet p {
-  color: rgba(255,255,255,0.75);
-  font-size: 1.1rem;
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.7;
-}
 
 section.bloco-secao { padding: 80px 10%; }
 
@@ -348,13 +342,11 @@ section.bloco-secao.escuro p  { color: rgba(255,255,255,0.8); }
 
 .tl-item {
   display: flex;
+  flex-direction: row;
   gap: 48px;
   margin-bottom: 56px;
   position: relative;
 }
-
-.tl-item:nth-child(odd)  { flex-direction: row; }
-.tl-item:nth-child(even) { flex-direction: row-reverse; }
 
 .tl-content {
   width: calc(50% - 40px);
@@ -944,9 +936,7 @@ section.bloco-secao.escuro p  { color: rgba(255,255,255,0.8); }
 .aviso-salvar.sucesso { color: #5a7a5a; }
 .aviso-salvar.erro    { color: var(--rosa-escuro); }
 
-/* ══════════════════════════════════════════════════════════════════
-   DASHBOARD
-   ══════════════════════════════════════════════════════════════════ */
+/*   DASHBOARD*/
 
 .dash-main {
   max-width: 1280px;
@@ -1195,9 +1185,7 @@ canvas { max-height: 300px; }
   font-style: italic;
 }
 
-/* ══════════════════════════════════════════════════════════════════
-   ALERTAS / NOTIFICAÇÕES
-   ══════════════════════════════════════════════════════════════════ */
+/* ALERTAS / NOTIFICAÇÕES */
 
 #alerta {
   position: fixed;
@@ -1252,9 +1240,7 @@ canvas { max-height: 300px; }
 
 .escondido { display: none !important; }
 
-/* ══════════════════════════════════════════════════════════════════
-   RESPONSIVO GERAL
-   ══════════════════════════════════════════════════════════════════ */
+/* RESPONSIVO GERAL */
 
 @media (max-width: 900px) {
   .graficos-grid { grid-template-columns: 1fr; }
