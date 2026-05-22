@@ -1,4 +1,3 @@
-/* ── VARIÁVEIS GLOBAIS */
 :root {
   --rosa-escuro: #a0384e;
   --rosa-medio: #c9566a;
@@ -15,14 +14,12 @@
   --sombra-hover: 0 16px 56px rgba(160, 56, 78, 0.22);
 }
 
-/*  RESET  */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/*  BASE  */
 body {
   font-family: 'DM Sans', 'Georgia', sans-serif;
   background: var(--creme);
@@ -35,7 +32,6 @@ body::selection {
   color: var(--dourado-claro);
 }
 
-/* ── HEADER / NAVBAR  */
 header {
   display: flex;
   justify-content: space-between;
@@ -92,7 +88,6 @@ nav a.ativo {
   font-weight: 700;
 }
 
-/* ── FOOTER ────────────────────────────────────────────────────── */
 footer {
   text-align: center;
   padding: 24px;
@@ -102,13 +97,10 @@ footer {
   background: var(--branco);
 }
 
-/* INDEX — página inicial */
-
 .hero {
   position: relative;
   min-height: 100vh;
-  background: linear-gradient(rgba(58, 31, 40, 0.55), rgba(58, 31, 40, 0.55)),
-    url("/assets/ballet.jpg");
+  background: linear-gradient(rgba(58, 31, 40, 0.55), rgba(58, 31, 40, 0.55)), url("/assets/ballet.jpg");
   background-size: cover;
   background-position: center;
   display: flex;
@@ -143,7 +135,6 @@ footer {
   line-height: 1.7;
 }
 
-/* Seções genéricas */
 section {
   padding: 100px 10%;
 }
@@ -166,7 +157,6 @@ section h2::after {
   margin: 12px auto 0;
 }
 
-/* Blocos imagem + texto */
 .bloco {
   display: flex;
   align-items: center;
@@ -282,10 +272,7 @@ section h2::after {
 .hero-ballet {
   position: relative;
   height: 75vh;
-
-  background:
-    linear-gradient(rgba(58, 31, 40, 0.45), rgba(58, 31, 40, 0.45)),
-    url("/assets/ballet3.jpg");
+  background: linear-gradient(rgba(58, 31, 40, 0.45), rgba(58, 31, 40, 0.45)), url("/assets/ballet3.jpg");
   background-size: cover;
   background-position: center 80%;
   background-repeat: no-repeat;
@@ -309,7 +296,6 @@ section h2::after {
   margin-bottom: 18px;
 }
 
-
 .hero-ballet p {
   color: var(--dourado-claro);
   background: rgba(160, 56, 78, 0.28);
@@ -323,7 +309,6 @@ section h2::after {
   backdrop-filter: blur(4px);
 }
 
-
 .hero-ballet::before {
   content: "🩰";
   position: absolute;
@@ -334,11 +319,9 @@ section h2::after {
   pointer-events: none;
 }
 
-
 .hero-ballet h2::after {
   display: none;
 }
-
 
 section.bloco-secao {
   padding: 80px 10%;
@@ -394,7 +377,6 @@ section.bloco-secao.escuro p {
   line-height: 1.7;
 }
 
-/* Linha do tempo */
 .timeline {
   position: relative;
   max-width: 900px;
@@ -474,7 +456,6 @@ section.bloco-secao.escuro p {
   width: calc(50% - 40px);
 }
 
-/* Metodologias */
 .metodologias-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -547,7 +528,6 @@ section.bloco-secao.escuro p {
   color: var(--rosa-escuro);
 }
 
-/* Princípios técnicos */
 .principios-grid {
   display: flex;
   flex-wrap: wrap;
@@ -586,7 +566,6 @@ section.bloco-secao.escuro p {
   line-height: 1.6;
 }
 
-/* CTA seção ballet */
 .cta-secao {
   background: linear-gradient(135deg, var(--rosa-escuro), var(--rosa-medio));
   padding: 80px 10%;
@@ -629,10 +608,6 @@ section.bloco-secao.escuro p {
   transform: translateY(-2px);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
 }
-
-/* ══════════════════════════════════════════════════════════════════
-   LOGIN & CADASTRO
-   ══════════════════════════════════════════════════════════════════ */
 
 .pagina {
   display: flex;
@@ -788,10 +763,6 @@ section.bloco-secao.escuro p {
   min-height: 18px;
 }
 
-/* ══════════════════════════════════════════════════════════════════
-   QUIZ
-   ══════════════════════════════════════════════════════════════════ */
-
 .quiz-topo {
   text-align: center;
   margin-bottom: 32px;
@@ -936,19 +907,9 @@ section.bloco-secao.escuro p {
 }
 
 @keyframes pop {
-  0% {
-    transform: scale(0.5);
-    opacity: 0;
-  }
-
-  80% {
-    transform: scale(1.1);
-  }
-
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
+  0%   { transform: scale(0.5); opacity: 0; }
+  80%  { transform: scale(1.1); }
+  100% { transform: scale(1);   opacity: 1; }
 }
 
 .resultado-subtitulo {
@@ -1032,8 +993,6 @@ section.bloco-secao.escuro p {
 .aviso-salvar.erro {
   color: var(--rosa-escuro);
 }
-
-/*   DASHBOARD*/
 
 .dash-main {
   max-width: 1280px;
@@ -1157,6 +1116,10 @@ section.bloco-secao.escuro p {
   line-height: 1.1;
 }
 
+.kpi-valor--sm {
+  font-size: 1.2rem;
+}
+
 .kpi-card.destaque .kpi-valor {
   color: white;
 }
@@ -1220,6 +1183,10 @@ canvas {
   max-height: 300px;
 }
 
+.grafico-radar {
+  max-height: 380px;
+}
+
 .ranking-list {
   list-style: none;
 }
@@ -1243,6 +1210,10 @@ canvas {
   color: var(--rosa-medio);
   width: 28px;
   text-align: center;
+}
+
+.ranking-emoji {
+  font-size: 1.3rem;
 }
 
 .ranking-nome {
@@ -1275,56 +1246,6 @@ canvas {
   text-align: right;
 }
 
-.perfis-mini {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.perfil-mini-card {
-  background: var(--rosa-suave);
-  border-radius: 14px;
-  padding: 14px 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.perfil-mini-emoji {
-  font-size: 1.4rem;
-}
-
-.perfil-mini-info {
-  flex: 1;
-}
-
-.perfil-mini-nome {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--rosa-escuro);
-  margin-bottom: 4px;
-}
-
-.perfil-mini-barra-wrap {
-  height: 5px;
-  background: rgba(160, 56, 78, 0.15);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.perfil-mini-barra {
-  height: 100%;
-  background: linear-gradient(to right, var(--rosa-medio), var(--rosa-escuro));
-  border-radius: 3px;
-  transition: width 1.2s ease;
-}
-
-.perfil-mini-pct {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--rosa-escuro);
-}
-
 .loading-state {
   display: flex;
   align-items: center;
@@ -1333,8 +1254,6 @@ canvas {
   color: var(--texto-claro);
   font-style: italic;
 }
-
-/* ALERTAS / NOTIFICAÇÕES */
 
 #alerta {
   position: fixed;
@@ -1367,17 +1286,6 @@ canvas {
 .mensagem-alarme .informacao {
   width: 66%;
 }
-
-/*
-@keyframes bell {
-  0%, 90%, 100% { transform: rotate(0deg); }
-  92%  { transform: rotate(-15deg); }
-  94%  { transform: rotate(15deg); }
-  96%  { transform: rotate(-10deg); }
-  98%  { transform: rotate(10deg); }
-}*/
-
-/*UTILITÁRIOS */
 
 .escondido {
   display: none !important;
