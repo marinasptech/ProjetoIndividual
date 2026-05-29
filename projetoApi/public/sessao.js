@@ -1,5 +1,4 @@
 
-var URL_API = "http://localhost:3333";
 
 var tentativas = 0;
 
@@ -35,12 +34,12 @@ function cadastrar() {
         return;
     }
 
-    if (nome.length <= 1) {
-        mostrarErro("Nome deve ter mais de 1 caractere.");
+    if (nome.length <= 2) {
+        mostrarErro("Nome deve ter mais de 2 caracteres.");
         return;
     }
 
-    if (email.includes("@") === false || email.includes(".") === false) {
+    if (email.includes("@") == false || email.includes(".com") == false) {
         mostrarErro("E-mail inválido.");
         return;
     }
@@ -62,7 +61,7 @@ function cadastrar() {
     };
 
     // Envia para a API via fetch
-    fetch(URL_API + "/usuarios", {
+    fetch( "/usuarios", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(corpo)
@@ -105,7 +104,7 @@ function validarSessao() {
         senha: senha
     };
 
-    fetch(URL_API + "/usuarios/login", {
+    fetch("/usuarios/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(corpo)
@@ -115,7 +114,6 @@ function validarSessao() {
     })
     .then(function (dados) {
         if (dados.token) {
-            sessionStorage.setItem("token",   dados.token);
             sessionStorage.setItem("usuario", JSON.stringify(dados.usuario));
 
             mostrarSucesso("Login realizado! Redirecionando...");

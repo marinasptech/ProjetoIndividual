@@ -1,4 +1,4 @@
-var database = require("../database/config");
+var db = require("../database/config");
 
 function autenticar(email, senha) {
     console.log(
@@ -14,7 +14,7 @@ function autenticar(email, senha) {
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+    return db.executar(instrucaoSql);
 }
 
 function cadastrar(nome, email, senha) {
@@ -31,7 +31,7 @@ function cadastrar(nome, email, senha) {
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+    return db.executar(instrucaoSql);
 }
 
 module.exports = {
